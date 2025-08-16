@@ -7,7 +7,7 @@ local RunService = game:GetService("RunService")
 local player = Players.LocalPlayer
 local mouse = player:GetMouse()
 
--- 🐾 Egg → Pet Table
+-- 🐾 Egg → Pet Table (ALL eggs)
 local petTable = {
     ["Common Egg"] = { "Dog", "Bunny", "Golden Lab" },
     ["Uncommon Egg"] = { "Chicken", "Black Bunny", "Cat", "Deer" },
@@ -21,8 +21,14 @@ local petTable = {
     ["Oasis Egg"] = { "Meerkat", "Sand Snake", "Axolotl" },
     ["Paradise Egg"] = { "Ostrich", "Peacock", "Capybara" },
     ["Dinosaur Egg"] = { "Raptor", "Triceratops", "Stegosaurus" },
-    ["Primal Egg"] = { "Parasaurolophus", "Iguanodon", "Pachycephalosaurus" },
-    ["Zen Egg"] = { "Shiba Inu", "Nihonzaru", "Tanuki", "Tanchozuru", "Kappa" },
+    ["Primal Egg"] = { "Parasaurolophus", "Iguanodon", "Pachycephalosaurus", "Spinosaurus" },
+    ["Zen Egg"] = { "Shiba Inu", "Nihonzaru", "Tanuki", "Tanchozuru", "Kappa", "Kitsune" },
+
+    -- 🌱 Sprout Egg (Beanstalk Event)
+    ["Sprout Egg"] = { "Dairy Cow", "Jackalope", "Seedling", "Golem", "Golden Goose" },
+
+    -- 🍽 Gourmet Egg (Cooking Update)
+    ["Gourmet Egg"] = { "Bagel Bunny", "Pancake Mole", "Sushi Bear", "Spaghetti Sloth", "French Fry Ferret" },
 }
 
 local espEnabled = true
@@ -251,7 +257,8 @@ local autoRunning = false
 local bestPets = {
     ["Raccoon"] = true, ["Dragonfly"] = true, ["Queen Bee"] = true,
     ["Disco Bee"] = true, ["Fennec Fox"] = true, ["Fox"] = true,
-    ["Mimic Octopus"] = true, ["Kitsune"] = true
+    ["Mimic Octopus"] = true, ["Kitsune"] = true,
+    ["Golden Goose"] = true, ["French Fry Ferret"] = true
 }
 
 autoBtn.MouseButton1Click:Connect(function()
@@ -259,7 +266,7 @@ autoBtn.MouseButton1Click:Connect(function()
     autoBtn.Text = autoRunning and "Auto Randomize: ON" or "Auto Randomize: OFF"
     coroutine.wrap(function()
         while autoRunning do
-            countdownAndRandomize(randomizeBtn) -- instant now
+            countdownAndRandomize(randomizeBtn) -- instant reroll
             for _, petName in pairs(truePetMap) do
                 if bestPets[petName] then
                     autoRunning = false
@@ -267,7 +274,7 @@ autoBtn.MouseButton1Click:Connect(function()
                     return
                 end
             end
-            wait(0.5) -- small delay to avoid lag
+            wait(0.5) -- avoid lag
         end
     end)()
 end)
